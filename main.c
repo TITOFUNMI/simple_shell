@@ -4,7 +4,7 @@ int _strcmp(char *s1, char *s2);
 /**
  * main - a homemade minimalistic shell program
  *
- * Return: returns 0 upon success 
+ * Return: returns 0 upon success
  */
 
 int main(void)
@@ -28,13 +28,15 @@ int main(void)
 			continue;
 		}
 		buffer[n_bytes - 1] = '\0';
-		
+
 		/*Execute user input*/
 		char *argv[] = {buffer, NULL};
 
-		/*This piece of code would handle the exit command:
-		 *if (_strcmp(argv[0], "exit") == 0) 		 
-		 *break;*/
+		/*
+		*This piece of code would handle the exit command:
+		*if (_strcmp(argv[0], "exit") == 0)
+		*break;
+		*/
 
 		id = fork(); /*Child process to handle execve*/
 		if (id == 0)
