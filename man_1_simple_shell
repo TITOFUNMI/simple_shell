@@ -21,13 +21,13 @@ and
 modes.
 .SH INVOCATION
 .PP
-In the 
-.I interactive 
+In the
+.I interactive
 mode, the user runs the program according to the SYNOPSIS above and starts slotting in commands that needs be executed.
 .PP
 In the
 .I non-interactive
-mode, the user types in command to the terminal and then pipes it with 
+mode, the user types in command to the terminal and then pipes it with
 .B ./Gsh.
 Once that command is executed or not, it returns back to the default shell your terminal started up with.
 .SH EXIT VALUES

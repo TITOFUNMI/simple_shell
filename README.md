@@ -1,8 +1,8 @@
-This is a minimalistic homemade shell. It is built to mimick the real 
+This is a minimalistic homemade shell. It is built to mimick the real
 shell (sh) program. It is currently under development. The current release is:
-Simple shell 0.1. 
+Simple shell 0.1.
 
-Authors: 
+Authors:
 - Felix Obianozie (felixobianozie@gmail.com)
 - Mypartner (mypartner@gmail.com)
 
