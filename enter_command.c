@@ -2,6 +2,11 @@
 #include <unistd.h>
 #include "shell.h"
 
+/**
+ * enter_command -command line function
+ *
+ * Return: buffer
+ */
 char *enter_command(void)
 {
 	char *buffer = NULL;
