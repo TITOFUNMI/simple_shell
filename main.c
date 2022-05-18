@@ -10,13 +10,13 @@ int _strcmp(char *s1, char *s2);
 int main(void)
 {
 	char *buffer = NULL;
-	
+	size_t buffer_size = 0;
+	size_t n_bytes = 0;
+	int status;
+	pid_t id;
+
 	while (1)
 	{
-		size_t buffer_size = 0;
-		size_t n_bytes = 0;
-		int status;
-	
 		/*Create an input prompt*/
 		write(1, "#cisfun$ ", 10);
 
@@ -32,14 +32,21 @@ int main(void)
 		/*Execute user input*/
 		char *argv[] = {buffer, NULL};
 
-		if (_strcmp(argv[0], "exit") == 0) /*Identify exit instance*/
-			break;
-		status = execve(argv[0], argv, NULL);
-		if (status == -1)
+		/*This piece of code would handle the exit command:
+		 *if (_strcmp(argv[0], "exit") == 0) 		 
+		 *break;*/
+
+		id = fork(); /*Child process to handle execve*/
+		if (id == 0)
 		{
-			perror("./hsh");
-			continue;
-		}
+			status = execve(argv[0], argv, NULL);
+			if (status == -1)
+			{
+				perror("./hsh");
+				break;
+			}
+		} else
+			wait(NULL);
 	}
 	exit(0);
 }
