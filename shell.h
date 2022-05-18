@@ -1,78 +1,80 @@
-#ifndef SHELL_H
-#define SHELL_H
+#ifndef _SHELL_H_
+#define _SHELL_H_
 
-/* Header Files */
-#include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-
-/* Macros */
-#define TRUE 1
-#define FALSE 0
-#define BUFSIZE 1024
-
-/* Global Variables */
-extern char **environ;
+#include <limits.h>
+#include <signal.h>
 
 /**
- * struct builtin_t - Structure for builtin commands
- * @cmd: the command's name
- * @f: the appropriate function to act on command
+ * struct variables - variables
+ * @av: command line arguments
+ * @buffer: buffer of command
+ * @env: environment variables
+ * @count: count of commands entered
+ * @argv: arguments at opening of shell
+ * @status: exit status
+ * @commands: commands to execute
  */
-typedef struct builtin_t
+typedef struct variables
 {
-	char *cmd;
-	int (*f)(char **, int, char *);
-} builtin_t;
+	char **av;
+	char *buffer;
+	char **env;
+	size_t count;
+	char **argv;
+	int status;
+	char **commands;
+} vars_t;
 
-/*----------//My Function Prototypes\\----------*/
-/*==============================================*/
+/**
+ * struct builtins - struct for the builtin functions
+ * @name: name of builtin command
+ * @f: function for corresponding builtin
+ */
+typedef struct builtins
+{
+	char *name;
+	void (*f)(vars_t *);
+} builtins_t;
 
-/* In executor.c */
-int execute(char **cmd, char *filename);
+char **make_env(char **env);
+void free_env(char **env);
 
-/* In prompt.c */
-void init_prompt(void);
+ssize_t _puts(char *str);
+char *_strdup(char *strtodup);
+int _strcmpr(char *strcmp1, char *strcmp2);
+char *_strcat(char *strc1, char *strc2);
+unsigned int _strlen(char *str);
 
-/* In parser.c */
-char *rm_newline(char *line);
-char **parse_input(char *line);
-char *build_path(char *token, char *value);
-int check_cmd_path(char **cmd);
+char **tokenize(char *buffer, char *delimiter);
+char **_realloc(char **ptr, size_t *size);
+char *new_strtok(char *str, const char *delim);
 
-/* In string.c */
-int _strlen(const char *s);
-char *_strstr(char *haystack, char *needle);
-char *_strcpy(char *dest, const char *src);
-char *_strcat(char *dest, const char *src);
-int _strcmp(char *s1, char *s2);
+void (*check_for_builtins(vars_t *vars))(vars_t *vars);
+void new_exit(vars_t *vars);
+void _env(vars_t *vars);
+void new_setenv(vars_t *vars);
+void new_unsetenv(vars_t *vars);
 
-/* In getenv.c */
-char *_getenv(const char *name);
+void add_key(vars_t *vars);
+char **find_key(char **env, char *key);
+char *add_value(char *key, char *value);
+int _atoi(char *str);
 
-/* In printers.c */
-int _putchar(int c);
-int print(char *str);
+void check_for_path(vars_t *vars);
+int path_execute(char *command, vars_t *vars);
+char *find_path(char **env);
+int execute_cwd(vars_t *vars);
+int check_for_dir(char *str);
 
-/* In utils.c */
-void free_memory_p(char *);
-void free_memory_pp(char **);
-int cmp(const char *s1, const char *s2);
-int _atoi(char *s);
-int _isalpha(char c);
+void print_error(vars_t *vars, char *msg);
+void _puts2(char *str);
+char *_uitoa(unsigned int count);
 
-/* In more_string.c */
-char *_strdup(char *s);
-
-/* In builtins.c */
-int exit_cmd(char **, int, char *);
-int env_cmd(char **, int, char *);
-builtin_t is_builtin(char *cmd);
-int (*check_builtins(char **))(char **, int, char *);
-
-#endif
+#endif /* _SHELL_H_ */
