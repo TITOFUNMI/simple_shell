@@ -1,4 +1,4 @@
-# Remi Oni and Tolulope Fakunle Shell
+# Felix Obianozie and Tolulope Fakunle Shell
 
 ![alt text](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-low_level_programming/235/shell.jpeg)
 
@@ -44,4 +44,4 @@ Our shell has support for the following built-in commands:
 
 ### Credits
 
-All code written by [Remi Oni]([https://github.com/Oni-Jremi]) and [Tolulope Fakunle](https://github.com/Tolulope05).
+All code written by [Felix Obianozie]([https://github.com/felixobianozie]) and [Tofunmi Olayiwola](https://github.com/Tolulope05).
